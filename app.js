@@ -1,7 +1,14 @@
 // Import
 const express = require("express");
+const dotenv = require('dotenv');
+
+// Env viariables
+dotenv.config();
+
+// App
 const app = express();
 
+// View
 const html = `
 <!DOCTYPE html>
 <html>
@@ -60,6 +67,5 @@ app.get("/", (req, res) => res.type('html').send(html));
 const HOSTNAME = process.env.HOSTNAME || 'localhost';
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(process.env.YODAWG);
   console.log(`Server started on http://${HOSTNAME}:${PORT}`);
 });
