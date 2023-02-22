@@ -1,7 +1,6 @@
 // Import
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3001;
 
 const html = `
 <!DOCTYPE html>
@@ -58,7 +57,9 @@ const html = `
 app.get("/", (req, res) => res.type('html').send(html));
 
 // Start
-app.listen(port, () => {
+const HOSTNAME = process.env.HOSTNAME || 'localhost';
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
   console.log(process.env.YODAWG);
-  console.log(`App successfully started on port ${port}!`);
+  console.log(`Server started on http://${HOSTNAME}:${PORT}`);
 });
