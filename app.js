@@ -1,5 +1,8 @@
 // Import
 const express = require("express");
+const path = require("path");
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 
 // Env viariables
@@ -7,6 +10,12 @@ dotenv.config();
 
 // App
 const app = express();
+
+// ### Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+app.use(cookieParser());
 
 // View
 const html = `
