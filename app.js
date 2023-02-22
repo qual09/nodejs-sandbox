@@ -50,8 +50,8 @@ const html = `
   </head>
   <body>
     <section>
-      Hello from Render!
+      Yo Dawg!
     </section>
   </body>
 </html>
-`
+`;
