@@ -1,11 +1,11 @@
-const { Pool, types } = require('pg');
-const dotenv = require('dotenv');
+import { Pool, types } from 'pg';
+import dotenv from 'dotenv';
 
 // ### Init Env Variables
 dotenv.config();
 
 // ### Init DB
-const pool = new Pool({
+const pool: Pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_DATABASE,
@@ -24,5 +24,16 @@ pool.on('error', (err, client) => {
 types.setTypeParser(1114, stringValue => stringValue); // time without timezone 
 types.setTypeParser(1082, stringValue => stringValue); // date 
 
-// ### Module exports
-module.exports = pool;
+export async function executeQuery(query: string, queryParams: (string | number | boolean | null)[]) {
+  const client = await pool.connect();
+  try {
+    const result = await client.query(query, queryParams);
+    return result;
+  } catch (error) {
+    throw error;
+  } finally {
+    // Make sure to release the client before any error handling,
+    // just in case the error handling itself throws an error.
+    client.release();
+  }
+}
